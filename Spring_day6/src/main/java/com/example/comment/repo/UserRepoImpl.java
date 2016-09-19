@@ -15,7 +15,7 @@ public class UserRepoImpl implements UserRepo {
 	SqlSessionTemplate template;
 
 	@Override
-	public int addUser(User user) {
+	public int insert(User user) {
 		String stmt = NAME_SPACE+"insert";
 		return template.update(stmt, user);
 	}

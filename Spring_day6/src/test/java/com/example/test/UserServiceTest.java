@@ -12,30 +12,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.comment.config.CommentConfig;
 import com.example.comment.dto.User;
-import com.example.comment.repo.UserRepo;
+import com.example.comment.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=CommentConfig.class)
 @Sql({"/dbschema/comment_schema.sql","/dbschema/comment_data.sql"}) // TESTING 할때만 쓴다
-public class UserTest {
+public class UserServiceTest {
 	
-	private static Logger logger = LoggerFactory.getLogger(UserTest.class);
+	private static Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 	
 	@Autowired
-	UserRepo repo;
+	UserService service;
 	
-	@Test
-	public void testUser() {
-		assertThat(repo, is(notNullValue()));
+	//@Test
+	public void testService() {
+		assertThat(service, is(notNullValue()));
 	}
 
 	@Test
-	public void testAddUser() {
+	public void testInsert() {
 		User user = new User("jang","1234");
-		int result = repo.insert(user);
+		int result = service.join(user);
 		logger.trace("User: {}", user);
 		assertThat(result, is(1));
 	}

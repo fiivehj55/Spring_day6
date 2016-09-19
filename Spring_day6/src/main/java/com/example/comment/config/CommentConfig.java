@@ -13,13 +13,24 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan({"com.example.comment.repo"})
+@ComponentScan({"com.example.comment.repo","com.example.comment.service"})
 @PropertySource("classpath:/config/dbconfig.properties")
+@EnableTransactionManagement // 트랜잭션 사용을 정의
 public class CommentConfig {
 	
 	private static Logger logger = LoggerFactory.getLogger(CommentConfig.class);
+	
+	// 트랜잭션 처리
+	@Bean
+	public PlatformTransactionManager transactionManager(DataSource ds){
+		PlatformTransactionManager tm = new DataSourceTransactionManager(ds);
+		return tm;
+	}
 	
 	@Bean
 	public DataSource dataSource(
