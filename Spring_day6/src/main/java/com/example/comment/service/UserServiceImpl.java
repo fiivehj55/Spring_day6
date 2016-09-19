@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 		// 사용자 정보 추가
 		int result = urepo.insert(user);
 		// Comment 공지 추가
-		int i = 1/0;
+		//int i = 1/0; // 트랜잭션 확인을 위한 설정
 		Comment comment = new Comment(0, "admin", user.getUserId() + "님이 가입했습니다.");
 		result = crepo.insert(comment);
 		return result;
